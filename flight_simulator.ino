@@ -8,6 +8,8 @@ A2 : Z-Axis
 */
 
 int pitchpin = A0,rollpin= A1;
+int controllerpitch = A4;
+int controllerroll = A5;
 int pitchavg, rollavg;
 int pitchtilt, rolltilt;
 int l1 = 6; 
@@ -17,6 +19,8 @@ int r2 = 9;
 int swpin = 0;
 int l1button = 0;
 int r1button = 0;
+int trigger = 0;
+int pitchvalue = 0 ; int rollvalue = 0;
 void setup() {
   Serial.begin(9600);          // Fast Baud rate to reduce lag
 //  pinMode(swpin, INPUT);
@@ -39,12 +43,7 @@ void loop() {
  rolltilt = (analogRead(rollpin)-rollavg);
  l1button = digitalRead(l1); 
  r1button = digitalRead(r1); 
- 
-  //Serial.println("pitch");
-  //Serial.println(analogRead(pitchpin));
 
-  //Serial.println("roll");
-  //Serial.println(analogRead(rollpin));
 
 // Send the Data as a Serial String as follows:
 // "pitchtilt, rolltilt \n"
@@ -53,11 +52,16 @@ void loop() {
    Serial.print(",");
    Serial.print(rolltilt, DEC);
    Serial.print(",");
-   Serial.print(l1button, DEC);
+   Serial.print(digitalRead(l1), DEC);
    Serial.print(",");
-   Serial.print(r1button, DEC);
+   Serial.print(digitalRead(l2), DEC);
+   Serial.print(",");
+   Serial.print(digitalRead(r1), DEC);
+   Serial.print(",");
+   Serial.print(digitalRead(r2), DEC);
    Serial.println();
-   //delay(300);                                           
+//   delay(100);
+  
   
 }
 
