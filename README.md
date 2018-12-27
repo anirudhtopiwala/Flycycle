@@ -8,7 +8,9 @@ We have Chosen two games to show our progress so far. The first one is a flight 
 Flycycle - Fight Simulator - Without VR
 
 [![IMAGE ALT TEXT HERE](https://img.youtube.com/vi/o-xOCrdsLkI/0.jpg)](https://www.youtube.com/watch?v=o-xOCrdsLkI&)
+
 Flycycle - Fight Simulator - With VR
+
 [![IMAGE ALT TEXT HERE](https://img.youtube.com/vi/6Vby8e83910/0.jpg)](https://www.youtube.com/watch?v=6Vby8e83910&)
 
 The second game is a racing game called Asphalt 8. This brings out the enthusiasm in children while physically working out.
