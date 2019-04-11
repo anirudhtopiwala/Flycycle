@@ -1,62 +1,52 @@
-/*
-  AnalogReadSerial
+#include <Wire.h>
+#include <Adafruit_MCP4725.h>
 
-  Reads an analog input on pin 0, prints the result to the Serial Monitor.
-  Graphical representation is available using Serial Plotter (Tools > Serial Plotter menu).
-  Attach the center pin of a potentiometer to pin A0, and the outside pins to +5V and ground.
 
-  This example code is in the public domain.
+Adafruit_MCP4725 dac1(1);
+Adafruit_MCP4725 dac2(2);
 
-  http://www.arduino.cc/en/Tutorial/AnalogReadSerial
-*/
+/*<<<<<<<<<<<<<<<<<<<<<<<<<
+Limits for the FLcycle are:
+Picth : 43 - 320 - 520
+Roll: 190 - 300 - 400
 
-// the setup routine runs once when you press reset:
-int newvalue;
+Volatge for Dac: 0 - 2048 - 4097
+**/
+double pitch, roll, psig, rsig; 
 void setup() {
   // initialize serial communication at 9600 bits per second:
   Serial.begin(9600);
+  dac1.begin(0x63);
+  dac2.begin(0x63);
 }
 
 // the loop routine runs over and over again forever:
 void loop() {
-  // read the input on analog pin 0:
   int pitch = analogRead(A0);
   int roll= analogRead(A1);
-//  int joystickvalue=analogRead(A4);
-  // print out the value you read:
-  Serial.println(pitch);
-  Serial.println(roll);
-  int sensorvalue  = pitch;
-  if(sensorvalue < 350)
-  {
-//    int diffright= (350 -sensorvalue);
-//    int newvalue= abs(200 - round((diffright)*3.125));
-    int newvalue = 5;
-    Serial.println("Going Left");
-    analogWrite(A4, newvalue);
 
+  // Pitch
+  if(pitch == 320 ){
+    psig = 2048;
   }
-  else if(sensorvalue > 495)
-  {
-//     int diffleft= (490 -sensorvalue);
-//     int newvalue= abs(668 - round((diffleft)*2.97));
-     int newvalue = 660;
-//     Serial.println("Going Right");
-//     analogWrite(A4, newvalue);
-  }
-  else
-  {
-    Serial.println("Center"); 
-      int newvalue= 380;
-     analogWrite(A4, newvalue);
-//      Serial.println(newvalue);
+  else if(pitch < 320 && pitch > 43){
+    psig = 2048*(picth-43)/277;
+    }
+   else if (pitch < 520 && pitch > 320){
+    psig = 2047 + 2048*(picth-320)/200;
+   }
 
+   // ROLL
+  if(roll == 300 ){
+    rsig = 2048;
   }
-//  int finalvalue= analogRead(A4);
-//  Serial.println(finalvalue);
-// 
-  
-//  Serial.println(sensorvalue);
-
-  delay(100);        // delay in between reads for stability
+  else if(roll < 300 && roll > 190){
+    rsig = 2048*(roll-190)/110;
+    }
+   else if (roll < 400 && roll > 300){
+    rsig = 2047 + 2048*(roll-300)/100;
+   }
+   
+dac1.setVoltage(psig, false);
+dac2.setVoltage(rsig, false);
 }
