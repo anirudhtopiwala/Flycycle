@@ -4,13 +4,14 @@ import serial
 
 # Initial Cursor Position
 cx = 0
-xMax = 1900
+ yMax = 1900
 cy = 0
  
 Sensitivity = .5        # Higher numbers make the mouse movement less sensitive to Tilt
 
 try:
-    ser = serial.Serial('COM4', timeout=2,baudrate = 9600)
+    
+    ser = serial.Serial('COM5', timeout=2,baudrate = 9600)
 except:
     print("Remember to close the serial port nxt time")
           
